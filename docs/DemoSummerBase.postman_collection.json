@@ -1,0 +1,1355 @@
+{
+	"info": {
+		"_postman_id": "96f6afd5-6b50-40bb-b00d-c05b67f9a7ec",
+		"name": "DemoSummerBase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7936948",
+		"_collection_link": "https://sednaveboni.postman.co/workspace/Team-Workspace~a143e571-7516-4521-81ca-6f8833471b79/collection/7936948-96f6afd5-6b50-40bb-b00d-c05b67f9a7ec?action=share&source=collection_link&creator=7936948"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Integratiion/AgencyLogin?username=7STAR&password=1234",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Integratiion",
+						"AgencyLogin"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "7STAR"
+						},
+						{
+							"key": "password",
+							"value": "1234"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OnlyTransferSave",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\": 0,\r\n    \"Operator\": \"JOINUP\",\r\n    \"Voucher\": \"5461976\",\r\n    \"BeginDate\": \"2021-10-15T00:00:00\",\r\n    \"EndDate\": \"2021-10-31T00:00:00\",\r\n    \"Description\": \"action 15.04.21, c/in-c/out 27.04.21-13.05.21-> 15.10.21-31.10.21\",\r\n    \"SaleDate\": \"2021-03-23T14:30:00+03:00\",\r\n    \"IsCancel\": false,\r\n    \"Customers\": [\r\n        {\r\n            \"Firstname\": \"VERONIKA\",\r\n            \"Lastname\": \"SHVEDOVA\",\r\n            \"BirthDate\": \"1992-12-18T00:00:00\",\r\n            \"Age\": 28,\r\n            \"PassNo\": \"0235867\",\r\n            \"SerialNo\": \"76\",\r\n            \"Address\": \"\",\r\n            \"Email\": \"\",\r\n            \"Title\": \"Mrs\",\r\n            \"SourceId\": null,\r\n            \"Id\": -2147483648,\r\n            \"IsCancel\": false,\r\n            \"Country\": \"Russia\",\r\n            \"Transfers\": [\r\n                {\r\n                    \"DirectionType\": 1,\r\n                    \"TransferType\": \"Group transfer\",\r\n                    \"DepartureTime\": \"2021-10-31T21:00:00\",\r\n                    \"LandingTime\": \"2021-10-31T23:55:00\",\r\n                    \"From\": {\r\n                        \"Name\": \"Cenger Beach Resort & Spa\",\r\n                        \"Type\": 1\r\n                    },\r\n                    \"To\": {\r\n                        \"Name\": \"Concordia Celes Hotel\",\r\n                        \"Type\": 1\r\n                    },\r\n                    \"TransferDate\": \"2021-10-31T00:00:00\",\r\n                    \"ExtraServices\": [],\r\n                    \"HasTransfer\": true,\r\n                    \"HasFreeTransfer\": false,\r\n                    \"SourceId\": \"5461976591c5d72ce9c4b8885c774adaafb2c89f69546b715eb4ec896f8cc8472e9e230\",\r\n                    \"IsCancel\": false,\r\n                    \"FlightFrom\": \"AYT\",\r\n                    \"FlightTo\": \"KUF\"\r\n                },\r\n                {\r\n                    \"DirectionType\": 1,\r\n                    \"TransferType\": \"Group transfer\",\r\n                    \"DepartureTime\": \"2021-10-15T03:50:00\",\r\n                    \"LandingTime\": \"2021-10-15T06:30:00\",\r\n                    \"From\": {\r\n                        \"Name\": \"Concordia Celes Hotel\",\r\n                        \"Type\": 1\r\n                    },\r\n                    \"To\": {\r\n                        \"Name\": \"Cenger Beach Resort & Spa\",\r\n                        \"Type\": 1\r\n                \r\n                    },\r\n                    \"TransferDate\": \"2021-10-15T00:00:00\",\r\n                    \"ExtraServices\": [],\r\n                    \"HasTransfer\": true,\r\n                    \"HasFreeTransfer\": false,\r\n                    \"SourceId\": \"5461976591c5d72ce9c4b8885c774adaafb2c895fd42ba789b349368403ea0b104747b5\",\r\n                    \"IsCancel\": false,\r\n                    \"FlightFrom\": \"KUF\",\r\n                    \"FlightTo\": \"AYT\"\r\n                }\r\n            ],\r\n            \"ArrivalSeat\": \"Y\",\r\n            \"DepartureSeat\": \"Y\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/api/Integratiion/SaveTransfer",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"api",
+						"Integratiion",
+						"SaveTransfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetContract",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"RecId\": 0,\r\n    \"HotelId\": 15,\r\n    \"RegionId\": 0,\r\n    \"IsActive\": true,\r\n    \"SeasonId\": 0,\r\n   \"SaleType\": 1,\r\n   \"UseCombinePackage\": true\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Integratiion/GetContractList",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Integratiion",
+						"GetContractList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPacket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"RecId\": 0,\r\n    \"HotelId\": 77,\r\n    \"RegionId\": 0,\r\n    \"IsActive\": true,\r\n    \"SeasonId\": 0,\r\n\t\"UseCombinePackage\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Integratiion/GetPackets",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Integratiion",
+						"GetPackets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Release",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Contracts\": [86298],\r\n  \"BeginDate\": \"2023-01-01T11:47:33.5600686+03:00\",\r\n  \"EndDate\": \"2023-09-28T11:47:33.5600686+03:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Contract/GetForecastRelease",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Contract",
+						"GetForecastRelease"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HotelPriceSearch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"operatorId\": 571,\r\n\"RegionId\": 0,\r\n\"BeginDate\": \"2024-09-10\",\r\n\"EndDate\": \"2024-09-12\",\r\n\"HotelId\": \"18\",\r\n\"Pax\": \"2\",\r\n\"Childs\": \"0\",\r\n\"ChildInfo\": [],\r\n\"RemainderQuotaCheck\": true,\r\n\"SaleDate\": \"2024-09-10\",\r\n\"IsAvailable\": false,\r\n\"RoomTypeId\": \"3\",\r\n\"SubregionId\": 0,\r\n\"BoardCode\": \"0\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/HotelPriceSearch",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"HotelPriceSearch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActiveHotelList",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/GetHotelList?operatorId=571&isActive=true",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"GetHotelList"
+					],
+					"query": [
+						{
+							"key": "operatorId",
+							"value": "571"
+						},
+						{
+							"key": "isActive",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HotelList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Tour/GetHotel?recId=11",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Tour",
+						"GetHotel"
+					],
+					"query": [
+						{
+							"key": "recId",
+							"value": "11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HotelCategory",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyDCTApi/api/Service2/GetHotelCategorylist",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyDCTApi",
+						"api",
+						"Service2",
+						"GetHotelCategorylist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSPO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"RecId\": 0,\r\n    \"HotelId\": 18,\r\n    \"RegionId\": 0,\r\n    \"IsActive\": true,\r\n    \"UseCombinePackage\": true\r\n    // \"RecordBegin\": \"2021-10-20T17:18:40.8452703+03:00\",\r\n    //\"RecordEnd\": \"2021-10-20T17:18:40.8452703+03:00\",\r\n    //\"UpdateBegin\": \"2021-10-20T17:18:40.8452703+03:00\",\r\n    //\"UpdateEnd\": \"2021-10-20T17:18:40.8462674+03:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/GetSpoList",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"GetSpoList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSpoes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"RecId\": 0,\r\n  \"HotelId\": 3379,\r\n  \"RegionId\": 0,\r\n  //\"IsIntegratedPacket\": true,\r\n  \"IsActive\": true,\r\n  \"UseCombinePackage\": true,\r\n  //\"RecordBegin\": \"2024-06-26T09:52:51.1015109+03:00\",\r\n  //\"RecordEnd\": \"2024-06-26T09:52:51.1015109+03:00\",\r\n  //\"UpdateBegin\": \"2024-06-26T09:52:51.1015109+03:00\",\r\n  //\"UpdateEnd\": \"2024-06-26T09:52:51.1015109+03:00\",\r\n  \"IsCancel\": false,\r\n  \"ContractId\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/GetSpoes",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"GetSpoes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HotelSearch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"$id\": \"0\",\r\n    \"operatorId\": 571,\r\n    \"beginDate\": \"2023-06-26T00:00:00\",\r\n    \"endDate\": \"2023-06-30T00:00:00\",\r\n    \"pax\": 1,\r\n    \"childInfo\": [],\r\n    \"buySale\": 1,\r\n    \"buySaleDate\": \"2023-06-15T00:00:00\",\r\n    \"adultAge\": [],\r\n    \"saleDate\": \"2023-06-15T00:00:00\",\r\n    \"stopSale\": true,\r\n    \"release\": true,\r\n    \"IsAvailable\": true,\r\n    \"quota\": true,\r\n    \"roomTypes\": [],\r\n    \"hotelList\": [18]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyDCTApi/Api/Reservation/SearchHotels",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyDCTApi",
+						"Api",
+						"Reservation",
+						"SearchHotels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ChangeTransferForIntegration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ReservationCustomerId\":5557362, \r\n  \"ArrivalFlightId\":\"193\",\r\n  \"DepartureFlightId\":\"197\",\r\n // \"ArrivalFlightTime\":\"2023-06-26\",\r\n // \"DepartureFlightTime\":\"2023-06-30\",\r\n  //\"IsArrivalTransfer\":false,\r\n  //\"IsDepartureTransfer\":false,\r\n  \"ArrivalTransferType\":4,\r\n  \"DepartureTransferType\":4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyDCTApi/Api/Integratiion/ChangeCustomerTransferForIntegration",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyDCTApi",
+						"Api",
+						"Integratiion",
+						"ChangeCustomerTransferForIntegration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPackect",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"RecId\": 0,\r\n    \"HotelId\": 18,\r\n    \"RegionId\": 0,\r\n    \"IsActive\": true,\r\n    \"SeasonId\": 0,\r\n\t\"UseCombinePackage\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyB2bApi/api/Integratiion/GetPackets",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyB2bApi",
+						"api",
+						"Integratiion",
+						"GetPackets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InsertReservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n\"Voucher\":\"54\",\r\n\"CheckinDate\": \"2024-09-05\",\r\n\"CheckOutDate\": \"2024-09-10\",\r\n \"HotelId\": 28,\r\n \"OperatorId\": 571,\r\n \"Adult\": 1,\r\n \"Child\": 2,\r\n \"BoardId\": 1,\r\n \"RoomTypeId\": 133,\r\n \"SourceId\": \"116\",\r\n \"Customers\": [\r\n  {\r\n  \"Title\": \"Grp\",\r\n  \"FirstName\":\"KSENIIA\",\r\n  \"LastName\":\"TSENOVA\",\r\n  //\"BirthDate\": \"1994-02-08\",\r\n  //\"Age\": 30,\r\n  \"PassNo\": \"022013\",\r\n  \"PassSerial\":  \"FU\",\r\n  \"ArrivalFlightNumber\": \"MIRAY\",\r\n  \"DepartureFlightNumber\": \"FIA 5312\",\r\n  \"ArrivalFlightTime\": \"2024-06-24\",\r\n  \"DepartureFlightTime\": \"2024-07-03\",\r\n  \"Nationality\": \"UKRAYNA\",\r\n  \"NationalityId\": 79,\r\n   \"ArrTransferType\": 10,\r\n  \"IsArrivalTransfer\": 0,\r\n  \"DepTransferType\": 10,\r\n  \"IsDepartureTransfer\": 1\r\n  //\"SourceId\": \"92\"\r\n            },\r\n  {\r\n  \"Title\": \"Inf\",\r\n  \"FirstName\":\"MYKOLA\",\r\n  \"LastName\":\"TSENOV\",\r\n  \"BirthDate\": \"2016-09-12\",\r\n  \"Age\": 7,\r\n  \"PassNo\": \"402523\",\r\n  \"PassSerial\":  \"GA\",\r\n  \"ArrivalFlightNumber\": \"FIA 5311\",\r\n  \"DepartureFlightNumber\": \"FIA 5312\",\r\n  \"ArrivalFlightTime\": \"2024-06-24\",\r\n  \"DepartureFlightTime\": \"2024-07-03\",\r\n  //\"Nationality\": \"UKRAYNA\",\r\n  //\"NationalityId\": 57,\r\n   \"ArrTransferType\": 10,\r\n  \"IsArrivalTransfer\": 1,\r\n  \"DepTransferType\": 10,\r\n  \"IsDepartureTransfer\": 1,\r\n  \"SourceId\": \"91\"\r\n            },\r\n  {\r\n  \"Title\": \"Chd\",\r\n  \"FirstName\":\"YULIIA\",\r\n  \"LastName\":\"TSENOVA\",\r\n  \"BirthDate\": \"2019-09-01\",\r\n  \"Age\": 4,\r\n  \"PassNo\": \"402286\",\r\n  \"PassSerial\":  \"GA\",\r\n  \"ArrivalFlightNumber\": \"FIA 5311\",\r\n  \"DepartureFlightNumber\": \"FIA 5312\",\r\n  \"ArrivalFlightTime\": \"2024-06-24\",\r\n  \"DepartureFlightTime\": \"2024-07-03\",\r\n  \"Nationality\": \"UKRAYNA\",\r\n  \"NationalityId\": 57,\r\n   \"ArrTransferType\": 10,\r\n  \"IsArrivalTransfer\": 1,\r\n  \"DepTransferType\": 10,\r\n  \"IsDepartureTransfer\": 1,\r\n  \"SourceId\": \"93\"\r\n            }],\r\n    \"IsReservationChanged\": false,\r\n    \"SaleDate\": \"2024-06-08\",\r\n    \"HotelRemark\": \"100763 with reservation №  100762\",\r\n    \"ReservationRemark\": \" Rezervasyon alanına denk gelir\",  \r\n    \"Code1\" : \"Kod 1 alanına denk gelir\",\r\n    \"Code2\": \"Kod 2 alanına denk gelir\",\r\n    \"Code3\": \"Kod 3 alanına denk gelir\" }  \r\n  ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/InsertReservation?username=7STAR&password=7STAR&voucherNo=t83",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"InsertReservation"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "7STAR"
+						},
+						{
+							"key": "password",
+							"value": "7STAR"
+						},
+						{
+							"key": "voucherNo",
+							"value": "t83"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CancelReservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/CancelReservationBySourcId?operatorId=571&sourceId=102",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"CancelReservationBySourcId"
+					],
+					"query": [
+						{
+							"key": "operatorId",
+							"value": "571"
+						},
+						{
+							"key": "sourceId",
+							"value": "102"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InsertReservationTEST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"AdditionalServices\": [],\r\n        \"CheckinDate\": \"2025-04-26\",\r\n        \"CheckOutDate\": \"2025-05-03\",\r\n        \"HotelId\": 916,\r\n        \"OperatorId\": 3,\r\n        \"Adult\": 2,\r\n        \"Child\": 1,\r\n        \"BoardId\": 1,\r\n        \"ContractId\": 110548,\r\n        \"RoomTypeId\": 7528,\r\n        \"GroupId\": 0,\r\n        \"GroupName\": \"\",\r\n        \"Customers\": [\r\n            {\r\n                \"Title\": \"Mr\",\r\n                \"FirstName\": \"ERGEAN\",\r\n                \"LastName\": \"DIMA\",\r\n                \"BirthDate\": \"1970-01-01\",\r\n                \"PassNo\": \"\",\r\n                \"PassSerial\": \"\",\r\n                \"PhoneNumber\": \"\",\r\n                \"Address\": \"\",\r\n                \"RecId\": 0,\r\n                \"Age\": \"55\",\r\n                \"SourceId\": \"1\",\r\n                \"IsArrivalTransfer\": 0,\r\n                \"IsDepartureTransfer\": 0\r\n            },\r\n            {\r\n                \"Title\": \"Mrs\",\r\n                \"FirstName\": \"RALUCA\",\r\n                \"LastName\": \"DIMA\",\r\n                \"BirthDate\": \"1970-01-01\",\r\n                \"PassNo\": \"\",\r\n                \"PassSerial\": \"\",\r\n                \"PhoneNumber\": \"\",\r\n                \"Address\": \"\",\r\n                \"RecId\": 0,\r\n                \"Age\": \"55\",\r\n                \"SourceId\": \"2\",\r\n                \"IsArrivalTransfer\": 0,\r\n                \"IsDepartureTransfer\": 0\r\n            },\r\n            {\r\n                \"Title\": \"Mr\",\r\n                \"FirstName\": \"FILIPFLORIN\",\r\n                \"LastName\": \"DIMA\",\r\n                \"BirthDate\": \"2021-04-24\",\r\n                \"PassNo\": \"\",\r\n                \"PassSerial\": \"\",\r\n                \"PhoneNumber\": \"\",\r\n                \"Address\": \"\",\r\n                \"RecId\": 0,\r\n                \"Age\": \"4\",\r\n                \"SourceId\": \"3\",\r\n                \"IsArrivalTransfer\": 0,\r\n                \"IsDepartureTransfer\": 0\r\n            }\r\n        ],\r\n        \"Remark\": \"\",\r\n        \"Description\": \"\",\r\n        \"B2bUserName\": \"\",\r\n        \"B2bPrice\": 0,\r\n        \"WithTransfer\": false,\r\n        \"ArrTransfer\": false,\r\n        \"DepTransfer\": false,\r\n        \"ArrTransferType\": 0,\r\n        \"DepTransferType\": 0,\r\n        \"AirPortId\": 0,\r\n        \"TransferPrice\": 0,\r\n        \"TransferCurrency\": \"\",\r\n        \"CurrencyRemark\": \"\",\r\n        \"RoomType\": 7528,\r\n        \"RecId\": \"ba022a9e-79b5-4818-88bd-1b765e03d0c3\",\r\n        \"ArrivalFlightId\": 0,\r\n        \"DepartureFlightId\": 0,\r\n        \"FlightPrice\": 0,\r\n        \"ArrivalFlightPrice\": 0,\r\n        \"DepartureFlightPrice\": 0,\r\n        \"Number\": 43,\r\n        \"ReservationId\": 0,\r\n        \"HotelRemark\": \"\",\r\n        \"TransferRemark\": \"\",\r\n        \"ReservationDetailId\": 0,\r\n        \"Amount\": 667.8,\r\n        \"DailyDetail\": [],\r\n        //\"HotelRoomCode\": \"VILLA ROOM SEA VIEW\",\r\n        \"SourceId\": \"351770_0\",\r\n        \"ImportType\": 0,\r\n        \"TransId\": \"\",\r\n        \"OrderId\": \"\",\r\n        \"SaleDate\": \"2024-09-17\",\r\n        \"Code3\": \"\",\r\n        \"Code2\": \"\",\r\n        \"Code1\": \"\",\r\n        \"SourceOrderId\": \"\",\r\n        \"BuySaleDate\": \"2024-09-17\",\r\n        \"ReservationRemark\": \"\",\r\n        \"IsReservationChanged\": false,\r\n        \"IsBabyFree\": true,\r\n        \"CheckContract\": true,\r\n        \"AdditionalServiceRemark\": \"\",\r\n        \"PasifReservationId\": 0,\r\n        \"PasifHotelId\": 0,\r\n        \"B2BTourPacketId\": 0,\r\n        \"B2BTourPacketPrice\": 0\r\n    }\r\n]\r\n\"Remark\": \"100763 with reservation №  100762 \\r\\n\",\r\n\t\t\"Description\": \"100763 with reservation №  100762 \\r\\n\",\r\n\t\t\"AirPortId\": 0,\r\n\t\t\"HotelRemark\": \"with reservation №  100762 \\r\\n\",\r\n\t\t\"TransferRemark\": \"\",\r\n\t\t\"SaleDate\": \"2025-06-23T15:15:01\",\r\n\t\t\"ReservationRemark\": \"with reservation №  100762 \\r\\n\",\r\n\t}\r\n]\r\n\r\n \r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/InsertReservation?username=PARALE&password=5277&voucherNo=t55",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"InsertReservation"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "PARALE"
+						},
+						{
+							"key": "password",
+							"value": "5277"
+						},
+						{
+							"key": "voucherNo",
+							"value": "t55"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1Vocuher2Oda",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\r\n    {\r\n        \"CheckinDate\": \"2023-07-25T00:00:00\",\r\n        \"CheckOutDate\": \"2023-07-29T00:00:00\",\r\n        \"HotelId\": 18,\r\n        \"OperatorId\": 571,\r\n        \"Adult\": 2,\r\n        \"Child\": 0,\r\n        \"BoardId\": 1,\r\n        \"RoomTypeId\": 3,\r\n        \"Customers\": [\r\n            {\r\n                \"Title\": \"Mr\",\r\n                \"FirstName\": \"MUKHAMBET\",\r\n                \"LastName\": \"NURSEBEPOV\",\r\n                \"BirthDate\": \"1977-07-30T00:00:00\",\r\n                \"PassNo\": \"N09494198\",\r\n                \"ArrivalFlightNumber\": \"DV811\",\r\n                \"DepartureFlightNumber\": \"DV812\",\r\n                \"ArrivalFlightTime\": \"2022-11-25T23:00:00\",\r\n                \"DepartureFlightTime\": \"2022-11-29T23:55:00\",\r\n                \"Nationality\": \"KAZAKISTAN\",\r\n                \"NationalityId\": 69,\r\n                \"EmailAddress\": \"\",\r\n                \"Age\": 45,\r\n                \"ArrTransferType\": 4,\r\n                \"DepTransferType\": 53,\r\n                \"IsArrivalTransfer\": 1,\r\n                \"IsDepartureTransfer\": 0\r\n            },\r\n            {\r\n                \"Title\": \"Mrs\",\r\n                \"FirstName\": \"MERUYERT\",\r\n                \"LastName\": \"OTEBAY\",\r\n                \"BirthDate\": \"1979-01-25T00:00:00\",\r\n                \"PassNo\": \"N11809230\",\r\n                \"SourceId\": \"1902881\",\r\n                \"ArrivalFlightNumber\": \"DV811\",\r\n                \"DepartureFlightNumber\": \"DV812\",\r\n                \"ArrivalFlightTime\": \"2023-08-25T23:00:00\",\r\n                \"DepartureFlightTime\": \"2023-08-29T23:55:00\",\r\n                \"Nationality\": \"KAZAKISTAN\",\r\n                \"EmailAddress\": \"\",\r\n                \"Age\": 43,\r\n                \"ArrTransferType\": 4,\r\n                \"DepTransferType\": 53,\r\n                \"IsArrivalTransfer\": 1,\r\n                \"IsDepartureTransfer\": 0\r\n            }\r\n\r\n            \r\n        ],\r\n        \"Remark\": \"116407\"\r\n\r\n    },\r\n\r\n    {\r\n        \"CheckinDate\": \"2023-07-29T00:00:00\",\r\n        \"CheckOutDate\": \"2023-08-02T00:00:00\",\r\n        \"HotelId\": 659,\r\n        \"OperatorId\": 571,\r\n        \"Adult\": 2,\r\n        \"Child\": 0,\r\n        \"BoardId\": 2,\r\n        \"RoomTypeId\": 1,\r\n        \"Customers\": [\r\n            {\r\n                \"Title\": \"Mr\",\r\n                \"FirstName\": \"MUKHAMBET\",\r\n                \"LastName\": \"NURSEBEPOV\",\r\n                \"BirthDate\": \"1977-07-30T00:00:00\",\r\n                \"PassNo\": \"N09494198\",\r\n                \"ArrivalFlightNumber\": \"DV811\",\r\n                \"DepartureFlightNumber\": \"DV812\",\r\n                \"ArrivalFlightTime\": \"2023-08-29T23:00:00\",\r\n                \"DepartureFlightTime\": \"2023-08-02T23:55:00\",\r\n                \"Nationality\": \"KAZAKISTAN\",\r\n                \"NationalityId\": 69,\r\n                \"EmailAddress\": \"\",\r\n                \"Age\": 45,\r\n                \"ArrTransferType\": 6,\r\n                \"DepTransferType\": 1,\r\n                \"IsArrivalTransfer\": 1,\r\n                \"IsDepartureTransfer\": 1\r\n            },\r\n            {\r\n                \"Title\": \"Mrs\",\r\n                \"FirstName\": \"MERUYERT\",\r\n                \"LastName\": \"OTEBAY\",\r\n                \"BirthDate\": \"1979-01-25T00:00:00\",\r\n                \"PassNo\": \"N11809230\",\r\n                \"SourceId\": \"1902881\",\r\n                \"ArrivalFlightNumber\": \"DV811\",\r\n                \"DepartureFlightNumber\": \"DV812\",\r\n                \"ArrivalFlightTime\": \"2023-08-29T23:00:00\",\r\n                \"DepartureFlightTime\": \"2023-08-02T23:55:00\",\r\n                \"Nationality\": \"KAZAKISTAN\",\r\n                \"EmailAddress\": \"\",\r\n                \"Age\": 43,\r\n                \"ArrTransferType\": 6,\r\n                \"DepTransferType\": 1,\r\n                \"IsArrivalTransfer\": 1,\r\n                \"IsDepartureTransfer\": 1\r\n            }\r\n\r\n            \r\n        ],\r\n        \"Remark\": \"116407\"\r\n\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyDCTApi/Api/Integratiion/InsertReservation?username=7STAR&password=7STAR&voucherNo=test10",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyDCTApi",
+						"Api",
+						"Integratiion",
+						"InsertReservation"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "7STAR"
+						},
+						{
+							"key": "password",
+							"value": "7STAR"
+						},
+						{
+							"key": "voucherNo",
+							"value": "test10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ara Transfer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\": 0,\r\n    \"Operator\": \"JOINUP\",\r\n    \"Voucher\": \"5461976\",\r\n    \"BeginDate\": \"2021-10-15T00:00:00\",\r\n    \"EndDate\": \"2021-10-31T00:00:00\",\r\n    \"Description\": \"action 15.04.21, c/in-c/out 27.04.21-13.05.21-> 15.10.21-31.10.21\",\r\n    \"SaleDate\": \"2021-03-23T14:30:00+03:00\",\r\n    \"IsCancel\": false,\r\n    \"Customers\": [\r\n        {\r\n            \"Firstname\": \"VERONIKA\",\r\n            \"Lastname\": \"SHVEDOVA\",\r\n            \"BirthDate\": \"1992-12-18T00:00:00\",\r\n            \"Age\": 28,\r\n            \"PassNo\": \"0235867\",\r\n            \"SerialNo\": \"76\",\r\n            \"Address\": \"\",\r\n            \"Email\": \"\",\r\n            \"Title\": \"Mrs\",\r\n            \"SourceId\": null,\r\n            \"Id\": -2147483648,\r\n            \"IsCancel\": false,\r\n            \"Country\": \"Russia\",\r\n            \"Transfers\": [\r\n                {\r\n                    \"DirectionType\": 1,\r\n                    \"TransferType\": \"Group transfer\",\r\n                    \"DepartureTime\": \"2021-10-31T21:00:00\",\r\n                    \"LandingTime\": \"2021-10-31T23:55:00\",\r\n                    \"From\": {\r\n                        \"Name\": \"Cenger Beach Resort & Spa\",\r\n                        \"Type\": 1\r\n                    },\r\n                    \"To\": {\r\n                        \"Name\": \"Concordia Celes Hotel\",\r\n                        \"Type\": 1\r\n                    },\r\n                    \"TransferDate\": \"2021-10-31T00:00:00\",\r\n                    \"ExtraServices\": [],\r\n                    \"HasTransfer\": false,\r\n                    \"HasFreeTransfer\": false,\r\n                    \"SourceId\": \"5461976591c5d72ce9c4b8885c774adaafb2c89f69546b715eb4ec896f8cc8472e9e230\",\r\n                    \"IsCancel\": false,\r\n                    \"FlightFrom\": \"AYT\",\r\n                    \"FlightTo\": \"KUF\"\r\n                },\r\n                {\r\n                    \"DirectionType\": 1,\r\n                    \"TransferType\": \"Group transfer\",\r\n                    \"DepartureTime\": \"2021-10-15T03:50:00\",\r\n                    \"LandingTime\": \"2021-10-15T06:30:00\",\r\n                    \"From\": {\r\n                        \"Name\": \"Concordia Celes Hotel\",\r\n                        \"Type\": 1\r\n                    },\r\n                    \"To\": {\r\n                        \"Name\": \"Cenger Beach Resort & Spa\",\r\n                        \"Type\": 1\r\n                \r\n                    },\r\n                    \"TransferDate\": \"2021-10-15T00:00:00\",\r\n                    \"ExtraServices\": [],\r\n                    \"HasTransfer\": true,\r\n                    \"HasFreeTransfer\": false,\r\n                    \"SourceId\": \"5461976591c5d72ce9c4b8885c774adaafb2c895fd42ba789b349368403ea0b104747b5\",\r\n                    \"IsCancel\": false,\r\n                    \"FlightFrom\": \"KUF\",\r\n                    \"FlightTo\": \"AYT\"\r\n                }\r\n            ],\r\n            \"ArrivalSeat\": \"Y\",\r\n            \"DepartureSeat\": \"Y\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyDCTApi/api/Integratiion/SaveTransfer",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyDCTApi",
+						"api",
+						"Integratiion",
+						"SaveTransfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCountry",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/GetCountrys",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"GetCountrys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReservations",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    //\"RecordDateBegin\": \"2021-10-21T09:17:15.3393423+03:00\",\r\n    //\"RecordDateEnd\": \"2021-10-21T09:17:15.3393423+03:00\",\r\n    //\"UpdateDateBegin\": \"2021-10-21T09:17:15.3393423+03:00\",\r\n    ///\"UpdateDateEnd\": \"2021-10-21T09:17:15.3393423+03:00\",\r\n   // \"RecId\": 5,\r\n    \"VoucherNo\": \"1Z8648\"\r\n   // \"SourceId\": \"sample string 7\",\r\n    //\"ConfirmStatus\": 64,\r\n    //\"HotelId\": 8,\r\n    //\"OrderId\": \"sample string 9\",\r\n    //\"OperatorId\": \"571\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/GetReservations",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"GetReservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1-Main Regions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyB2bApi/api/Integratiion/GetMainRegions?operatorId=571",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyB2bApi",
+						"api",
+						"Integratiion",
+						"GetMainRegions"
+					],
+					"query": [
+						{
+							"key": "operatorId",
+							"value": "571"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2-Sub Region",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/GetSubRegions?operatorId=571",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"GetSubRegions"
+					],
+					"query": [
+						{
+							"key": "operatorId",
+							"value": "571"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3-Transfer Regions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/GetRegionList?operatorId=571",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"GetRegionList"
+					],
+					"query": [
+						{
+							"key": "operatorId",
+							"value": "571"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetStopSale",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyB2bApi/api/Integratiion/GetStopSaleList?recordDateBegin=2023-10-13&recordDateEnd=2025-12-31&stopDateBegin=2023-10-16&stopDateEnd=2025-12-31&hotelId=18",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyB2bApi",
+						"api",
+						"Integratiion",
+						"GetStopSaleList"
+					],
+					"query": [
+						{
+							"key": "recordDateBegin",
+							"value": "2023-10-13"
+						},
+						{
+							"key": "recordDateEnd",
+							"value": "2025-12-31"
+						},
+						{
+							"key": "stopDateBegin",
+							"value": "2023-10-16"
+						},
+						{
+							"key": "stopDateEnd",
+							"value": "2025-12-31"
+						},
+						{
+							"key": "hotelId",
+							"value": "18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetQuota",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"HotelId\": 18,\r\n  \"OperatorId\": 571,\r\n  \"BeginDate\": \"2023-01-10T08:30:09.413657+03:00\",\r\n  \"EndDate\": \"2023-11-10T08:30:09.413657+03:00\",\r\n  \"SaleDateBegin\": \"2023-01-10T08:30:09.413657+03:00\",\r\n  \"SaleDateEnd\": \"2023-11-10T08:30:09.413657+03:00\"\r\n  //\"OperatorGroupId\": 7,\r\n  //\"HotelGroupId\": 8\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyDCTApi/api/Contract/GetContractQuotaForAvailabile",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyDCTApi",
+						"api",
+						"Contract",
+						"GetContractQuotaForAvailabile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TEST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n{\r\n   \"CheckinDate\": \"2023-09-23\",\r\n   \"CheckOutDate\": \"2023-09-29\",\r\n   \"HotelId\": 18,\r\n   \"OperatorId\": \"571\",\r\n   \"Adult\": 2,\r\n   \"Child\": 1,\r\n   \"BoardId\": 4,\r\n   \"RoomTypeId\": 516,\r\n   \"SourceId\":\"testvoucher011\",\r\n   \"Customers\": [\r\n            {\r\n                \"Title\": \"Mr\",\r\n                \"FirstName\": \"TESTADULT1\",\r\n                \"LastName\": \"TESTADULT1\",\r\n                \"Age\": 40,\r\n                \"ArrivalFlightNumber\": \"FlightNameNotID\",\r\n                \"DepartureFlightNumber\": \"FlightNameNotID\",\r\n                \"ArrivalFlightTime\": \"2023-09-23\",\r\n                \"DepartureFlightTime\": \"2023-09-29\",\r\n                \"ArrTransferType\": 1,\r\n                \"DepTransferType\": 1,\r\n                \"IsArrivalTransfer\": 1,\r\n                \"IsDepartureTransfer\": 1,\r\n                \"SourceId\": \"SourceId1\"\r\n            },\r\n            {\r\n                \"Title\": \"Mr\",\r\n                \"FirstName\": \"TESTADULT2\",\r\n                \"LastName\": \"TESTADULT2\",\r\n                \"Age\": 40,\r\n                \"ArrivalFlightNumber\": \"FlightNameNotID\",\r\n                \"DepartureFlightNumber\": \"FlightNameNotID\",\r\n                \"ArrivalFlightTime\": \"2023-09-23\",\r\n                \"DepartureFlightTime\": \"2023-09-29\",\r\n                \"ArrTransferType\": 19,\r\n                \"DepTransferType\": 19,\r\n                \"IsArrivalTransfer\": 1,\r\n                \"IsDepartureTransfer\": 1,\r\n                \"SourceId\": \"SourceId2\"\r\n            },\r\n            {\r\n                \"Title\": \"Chd\",\r\n                \"FirstName\": \"TESTADULT3\",\r\n                \"LastName\": \"TESTADULT3\",\r\n                \"BirthDate\": \"01.01.2018\",\r\n                \"Age\": 5,\r\n                \"ArrivalFlightNumber\": \"FlightNameNotID\",\r\n                \"DepartureFlightNumber\": \"FlightNameNotID\",\r\n                \"ArrivalFlightTime\": \"2023-09-23\",\r\n                \"DepartureFlightTime\": \"2023-09-29\",\r\n                \"ArrTransferType\": 1,\r\n                \"DepTransferType\": 1,\r\n                \"IsArrivalTransfer\": 1,\r\n                \"IsDepartureTransfer\": 1,\r\n                \"SourceId\": \"SourceId3\"\r\n            }\r\n        ],\r\n\r\n   \"SaleDate\": \"2022-10-26\",\r\n   \"IsReservationChanged\": false,\r\n   \"ReservationRemark\": \"1234\"\r\n}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyDCTApi/Api/Integratiion/InsertReservation?username=7STAR&password=7STAR&voucherNo=testtest24",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyDCTApi",
+						"Api",
+						"Integratiion",
+						"InsertReservation"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "7STAR"
+						},
+						{
+							"key": "password",
+							"value": "7STAR"
+						},
+						{
+							"key": "voucherNo",
+							"value": "testtest24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StopSaleWithUpdateDate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"OperatorId\": 643,\r\n    \"RegionId\": 1,\r\n    \"BeginDate\": \"2024-06-08T00:00:00\",\r\n    \"EndDate\": \"2024-06-15T00:00:00\",\r\n    \"HotelId\": 0,\r\n    \"Pax\": 3,\r\n    \"Childs\": 0,\r\n    \"ChildInfo\": [],\r\n    \"RemainderQuotaCheck\": true,\r\n    \"SaleDate\": \"2024-01-30T00:00:00\",\r\n    \"IsAvailable\": true,\r\n    \"WithoutInformation\": true,\r\n    \"RoomTypeId\": 0,\r\n    \"MainRegionId\": 2,\r\n    \"SubregionId\": 2,\r\n    \"BoardCode\": null,\r\n    \"HotelList\": null,\r\n    \"WithoutStop\": false,\r\n    \"_id\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Integratiion/GetStopSaleListWithUpdateDate?recordDateBegin=2024-04-18&recordDateEnd=2025-10-18&stopDateBegin=2024-03-01&stopDateEnd=2025-10-31&hotelId=18",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Integratiion",
+						"GetStopSaleListWithUpdateDate"
+					],
+					"query": [
+						{
+							"key": "recordDateBegin",
+							"value": "2024-04-18"
+						},
+						{
+							"key": "recordDateEnd",
+							"value": "2025-10-18"
+						},
+						{
+							"key": "stopDateBegin",
+							"value": "2024-03-01"
+						},
+						{
+							"key": "stopDateEnd",
+							"value": "2025-10-31"
+						},
+						{
+							"key": "hotelId",
+							"value": "18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReservationByVoucher",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Reservation/GetReservationByVoucher?voucher=testtest50&operatorId=571",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Reservation",
+						"GetReservationByVoucher"
+					],
+					"query": [
+						{
+							"key": "voucher",
+							"value": "testtest50"
+						},
+						{
+							"key": "operatorId",
+							"value": "571"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetReservastionForInteg",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get Operator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Integratiion/GetOperators",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Integratiion",
+						"GetOperators"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetExtraServiceReport",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"TourBegin\": \"2024-04-01T10:41:19.6857321+03:00\",\r\n  \"TourEnd\": \"2024-04-29T10:41:19.6857321+03:00\",\r\n//   \"CreateType\":3\r\n  \"paxbegin\": 1,\r\n  \"paxend\": 5\r\n  //\"Region\": [1,2],\r\n  //\"Vehicles\": [1,2],\r\n  //\"VehicleTypes\": [1,2],\r\n  //\"SubRegion\": [1,2],\r\n  //\"Guides\": [1,2],\r\n  //\"TrfGrupId\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Report/GetExtraServiceReport",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Report",
+						"GetExtraServiceReport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetQuota",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Integratiion/GetQuota?stayDate=2025-08-08&operatorId=571&hotelId=18",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Integratiion",
+						"GetQuota"
+					],
+					"query": [
+						{
+							"key": "stayDate",
+							"value": "2025-08-08"
+						},
+						{
+							"key": "operatorId",
+							"value": "571"
+						},
+						{
+							"key": "hotelId",
+							"value": "18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTourVehicleListByRegion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"TourBegin\": \"2024-07-08\",\r\n  \"TourEnd\": \"2024-07-11\",\r\n  \"CreateType\": 0,\r\n  \"paxbegin\": 0,\r\n  \"paxend\": 999,\r\n   //\"Region\": [15]\r\n  //\"Vehicles\": [1,2]\r\n  //\"VehicleTypes\": [151],\r\n  //\"SubRegion\": [15]\r\n  //\"Guides\": [1,2],\r\n  //\"TrfGrupId\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyB2bApi/Api/Tour/GetTourVehicleListByRegion",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyB2bApi",
+						"Api",
+						"Tour",
+						"GetTourVehicleListByRegion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetForecastRelease",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Contracts\": [100749],\r\n  \"BeginDate\": \"2025-01-01T11:47:33.5600686+03:00\",\r\n  \"EndDate\": \"2025-09-25T11:47:33.5600686+03:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Contract/GetForecastRelease",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Contract",
+						"GetForecastRelease"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRoomTypeList",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "GetCrmReservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  //\"RecordDateBegin\": \"2025-03-07T15:46:41.670126+03:00\",\r\n  //\"RecordDateEnd\": \"2025-03-07T15:46:41.670126+03:00\",\r\n  //\"UpdateDateBegin\": \"2025-03-07T15:46:41.670126+03:00\",\r\n  //\"UpdateDateEnd\": \"2025-03-07T15:46:41.670126+03:00\",\r\n  //\"CheckInDateBegin\": \"2025-03-07T15:46:41.670126+03:00\",\r\n  //\"CheckInDateEnd\": \"2025-03-07T15:46:41.670126+03:00\",\r\n  //\"CheckOutDateBegin\": \"2025-03-07T15:46:41.670126+03:00\",\r\n  //\"CheckOutDateEnd\": \"2025-03-07T15:46:41.670126+03:00\",\r\n  //\"RecId\": 0,\r\n  \"VoucherNo\": \"B387667\",\r\n  //\"HotelId\": 0,\r\n  \"OperatorId\": 7\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Integratiion/GetCrmReservation",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Integratiion",
+						"GetCrmReservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTransferTypeForIntegration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Integratiion/GetTransferTypeForIntegration",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Integratiion",
+						"GetTransferTypeForIntegration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MinStay",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Contract/GetContractMinStays?ContractId=100749",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Contract",
+						"GetContractMinStays"
+					],
+					"query": [
+						{
+							"key": "ContractId",
+							"value": "100749"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTransferPrices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/GetTransferPricesForIntegration?OperatorId=571",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"GetTransferPricesForIntegration"
+					],
+					"query": [
+						{
+							"key": "OperatorId",
+							"value": "571"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transfer Price",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DemoSummerBASE}}/Integratiion/GetTransferPricesForIntegration?OperatorId=571",
+					"host": [
+						"{{DemoSummerBASE}}"
+					],
+					"path": [
+						"Integratiion",
+						"GetTransferPricesForIntegration"
+					],
+					"query": [
+						{
+							"key": "OperatorId",
+							"value": "571"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetHotelRoomTypelistAll",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[18]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Service1/GetHotelRoomTypelistAll",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Service1",
+						"GetHotelRoomTypelistAll"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "DemoSummerBASE",
+			"value": "http://test.kodsedna.com/SednaAgencyb2bApi/api",
+			"type": "string"
+		}
+	]
+}
