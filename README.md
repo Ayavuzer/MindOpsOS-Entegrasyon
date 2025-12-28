@@ -1,72 +1,179 @@
-# MindOpsOS-Entegrasyon
+# MindOpsOS Entegrasyon
 
-Juniper rezervasyon sistemi ile Sedna Agency programı arasında otomatik email-tabanlı entegrasyon servisi.
+> Multi-Tenant Juniper → Sedna Integration Platform
 
-## 🎯 Features
+## 🚀 Overview
 
-- **Rezervasyon İşleme:** Juniper'dan gelen PDF formatlı rezervasyon onaylarını otomatik parse ve Sedna'ya kayıt
-- **Stop Sale İşleme:** Otellerden gelen satış durdurma bildirimlerini otomatik işleme
-- **7/24 Otomasyon:** Sürekli email izleme ve anında işlem
+A full-stack SaaS platform that automates the integration between Juniper Travel Technology and Sedna Agency systems. Originally built for Point Holiday, now evolved into a multi-tenant platform.
+
+## 📊 Stats
+
+| Metric | Value |
+|--------|-------|
+| Stories Completed | 14 |
+| Story Points | 47 |
+| API Endpoints | 22 |
+| Frontend Pages | 8 |
+| Database Tables | 9 |
+| Lines of Code | ~8000 |
+
+## 🏗️ Architecture
+
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│   Next.js 14    │────▶│   FastAPI       │────▶│   PostgreSQL    │
+│   Frontend      │     │   Backend       │     │   + asyncpg     │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+        │                       │
+        │                       ▼
+        │               ┌─────────────────┐
+        │               │  External APIs  │
+        │               │  - POP3 Email   │
+        │               │  - Sedna API    │
+        │               └─────────────────┘
+        │
+        ▼
+┌─────────────────────────────────────────┐
+│            Frontend Pages               │
+│  Dashboard │ Login │ Register │ Settings│
+│  Emails │ Reservations │ Stop Sales     │
+│  History                                │
+└─────────────────────────────────────────┘
+```
+
+## 📦 Modules
+
+### Backend (FastAPI)
+
+| Module | Description | Endpoints |
+|--------|-------------|-----------|
+| `auth` | JWT authentication | `/api/auth/*` |
+| `tenant` | Settings & encryption | `/api/tenant/*` |
+| `emailfetch` | POP3 email ingestion | `/api/email/*` |
+| `sedna` | Sedna API sync | `/api/sedna/*` |
+| `processing` | Pipeline orchestration | `/api/processing/*` |
+
+### Frontend (Next.js)
+
+| Page | Route | Description |
+|------|-------|-------------|
+| Dashboard | `/` | Stats + Run Pipeline |
+| Login | `/login` | JWT authentication |
+| Register | `/register` | Tenant creation |
+| Settings | `/settings` | Credentials config |
+| Emails | `/emails` | Email list + filters |
+| Reservations | `/reservations` | Reservation cards |
+| Stop Sales | `/stop-sales` | Stop sale list |
+| History | `/history` | Pipeline run history |
+
+## 🔄 Processing Pipeline
+
+```
+POST /api/processing/run
+    │
+    ├─→ 1️⃣ FETCH Booking Emails (POP3)
+    │
+    ├─→ 2️⃣ FETCH Stop Sale Emails (POP3)
+    │
+    ├─→ 3️⃣ PARSE Pending Emails
+    │       ├─→ PDF → JuniperPdfParser → Reservation
+    │       └─→ Body → StopSaleEmailParser → Stop Sale
+    │
+    ├─→ 4️⃣ SYNC Pending to Sedna
+    │
+    └─→ Return Combined Results
+```
+
+## 🗄️ Database Schema
+
+| Table | Purpose |
+|-------|---------|
+| `tenants` | Tenant companies |
+| `users` | Users per tenant |
+| `sessions` | JWT sessions |
+| `tenant_settings` | Encrypted credentials |
+| `emails` | Fetched emails |
+| `reservations` | Parsed reservations |
+| `stop_sales` | Parsed stop sales |
+| `processing_logs` | Email processing logs |
+| `pipeline_runs` | Pipeline run history |
+
+## 🔐 Security
+
+- **JWT Authentication** - Secure token-based auth
+- **Fernet Encryption** - Credentials encrypted at rest
+- **Tenant Isolation** - Data separated by tenant_id
+- **Password Hashing** - bcrypt with salt
 
 ## 🚀 Quick Start
 
+### Backend
+
 ```bash
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-.\venv\Scripts\activate   # Windows
-
-# Install dependencies
+cd apps/api
 pip install -r requirements.txt
-
-# Configure environment
-cp config/.env.example config/.env
-# Edit .env with your credentials
-
-# Run service
-python -m src.main
+uvicorn main:app --reload --port 8080
 ```
+
+### Frontend
+
+```bash
+cd apps/web
+npm install
+npm run dev
+```
+
+### Database
+
+```bash
+# Run migrations
+psql -U aria -d mindops_entegrasyon -f migrations/001_create_tenants.sql
+# ... etc
+```
+
+## 📚 API Documentation
+
+- Swagger UI: `http://localhost:8080/docs`
+- ReDoc: `http://localhost:8080/redoc`
+- Health Check: `http://localhost:8080/health`
 
 ## 📁 Project Structure
 
 ```
 MindOpsOS-Entegrasyon/
-├── src/
-│   ├── main.py              # Entry point
-│   ├── config.py            # Configuration
-│   ├── services/            # Business logic
-│   ├── parsers/             # PDF/Email parsing
-│   ├── models/              # Data models
-│   └── utils/               # Utilities
-├── config/
-│   └── .env.example
-├── docs/
-│   └── prd/                 # Product docs
-└── tests/
+├── apps/
+│   ├── api/                 # FastAPI backend
+│   │   ├── auth/            # Authentication module
+│   │   ├── tenant/          # Tenant settings
+│   │   ├── emailfetch/      # POP3 + parsing
+│   │   ├── sedna/           # Sedna integration
+│   │   ├── processing/      # Pipeline orchestration
+│   │   └── main.py          # App entrypoint
+│   └── web/                 # Next.js frontend
+├── src/                     # Legacy/shared code
+│   ├── parsers/             # PDF & email parsers
+│   └── services/            # Core services
+├── migrations/              # SQL migrations
+└── docs/
+    ├── stories/             # User stories
+    └── architecture/        # Design docs
 ```
 
-## 📧 Email Configuration
+## 👨‍💻 Development
 
-| Purpose | Address |
-|---------|---------|
-| Reservations | <booking@pointholiday.com> |
-| Stop Sales | <stopsale@pointholiday.com> |
+Built with BMad methodology using Antigravity AI agent.
 
-## 🌐 Sedna API
+### Tech Stack
 
-- **Base URL:** <https://test.kodsedna.com/api/Integration>
-- **Docs:** <https://test.kodsedna.com/AgencyDoc/>
+- **Backend**: Python 3.11, FastAPI, asyncpg, Pydantic
+- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
+- **Database**: PostgreSQL 17
+- **Auth**: JWT, bcrypt, Fernet encryption
 
-## 📊 Status
+## 📝 License
 
-| Component | Status |
-|-----------|--------|
-| Project Setup | ✅ |
-| Email Service | ⏳ |
-| PDF Parser | ⏳ |
-| Sedna Client | ⏳ |
+Private - Point Holiday / MindOps
 
 ---
 
-*Point Holiday - MindOps Integration*
+Built with ❤️ by Antigravity Agent
