@@ -36,6 +36,38 @@ class TenantSednaService:
         self.settings_service = settings_service
         self.cache_service = cache_service
     
+    async def _login_to_sedna(
+        self,
+        client: httpx.AsyncClient,
+        sedna_config: dict,
+    ) -> bool:
+        """
+        Login to Sedna API to establish session cookie.
+        
+        CRITICAL: Sedna API uses cookie-based session auth.
+        Must call this before any other API calls.
+        
+        Returns:
+            True if login successful, False otherwise
+        """
+        try:
+            response = await client.get(
+                f"{sedna_config['api_url']}/api/Integratiion/AgencyLogin",
+                params={
+                    "username": sedna_config["username"],
+                    "password": sedna_config["password"],
+                },
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("ErrorType") == 0 and data.get("RecId"):
+                    return True
+            
+            return False
+        except Exception:
+            return False
+    
     async def _get_sedna_config(self, tenant_id: int) -> Optional[dict]:
         """Get Sedna config with decrypted password."""
         credentials = await self.settings_service.get_decrypted_credentials(tenant_id)
@@ -231,6 +263,14 @@ class TenantSednaService:
         
         try:
             async with httpx.AsyncClient(timeout=30) as client:
+                # ⚠️ CRITICAL: Login first to establish session cookie
+                logged_in = await self._login_to_sedna(client, sedna_config)
+                if not logged_in:
+                    return SyncResult(
+                        success=False,
+                        message="Sedna login failed",
+                    )
+                
                 # First check if hotel ID is pre-configured
                 hotel_id = stop_sale.get("sedna_hotel_id")
                 
@@ -278,10 +318,7 @@ class TenantSednaService:
                 response1 = await client.put(
                     f"{sedna_config['api_url']}/api/Contract/UpdateStopSale",
                     json=phase1_payload,
-                    params={
-                        "username": sedna_config["username"],
-                        "password": sedna_config["password"],
-                    },
+                    # No params needed - session cookie handles auth
                 )
                 
                 if response1.status_code != 200:
@@ -320,10 +357,7 @@ class TenantSednaService:
                 response2 = await client.put(
                     f"{sedna_config['api_url']}/api/Contract/UpdateStopSale",
                     json=phase2_payload,
-                    params={
-                        "username": sedna_config["username"],
-                        "password": sedna_config["password"],
-                    },
+                    # No params needed - session cookie handles auth
                 )
                 
                 if response2.status_code != 200:
