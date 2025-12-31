@@ -2,7 +2,7 @@
 
 import asyncio
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 import asyncpg
@@ -60,8 +60,8 @@ class TokenRefreshJob:
     async def _check_and_refresh_tokens(self) -> None:
         """Find tokens expiring soon and refresh them."""
         
-        # Calculate threshold time
-        threshold = datetime.utcnow() + timedelta(minutes=self.refresh_before_expiry_minutes)
+        # Calculate threshold time (timezone-aware)
+        threshold = datetime.now(timezone.utc) + timedelta(minutes=self.refresh_before_expiry_minutes)
         
         async with self.pool.acquire() as conn:
             # Find tenants with tokens expiring soon
