@@ -1,0 +1,37 @@
+# Dependencies
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+.venv/
+ENV/
+.git
+.gitignore
+.dockerignore
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Tests
+tests/
+pytest.ini
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Docs
+docs/
+*.md
+!README.md
+
+# Misc
+*.log
+*.tmp
+.DS_Store

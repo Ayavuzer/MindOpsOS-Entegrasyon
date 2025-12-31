@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "114aa3fb-6864-40e7-8685-c026d1829b67",
+		"name": "StopSale",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7936948",
+		"_collection_link": "https://sednaveboni.postman.co/workspace/Team-Workspace~a143e571-7516-4521-81ca-6f8833471b79/collection/7936948-114aa3fb-6864-40e7-8685-c026d1829b67?action=share&source=collection_link&creator=7936948"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/AgencyLogin?username=7STAR&password=1234",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"AgencyLogin"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "7STAR"
+						},
+						{
+							"key": "password",
+							"value": "1234"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RoomType",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Integratiion/GetRoomTypeList?operatorId=571",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Integratiion",
+						"GetRoomTypeList"
+					],
+					"query": [
+						{
+							"key": "operatorId",
+							"value": "571"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Board",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyb2bApi/api/Service2/GetBoardList",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyb2bApi",
+						"api",
+						"Service2",
+						"GetBoardList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckStopSaleState",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"hotelId\": 18,\r\n  \"beginDate\": \"2025-12-29T00:00:00\",\r\n  \"endDate\": \"2025-12-29T00:00:00\",\r\n  \"operatorList\": [ 571 ],\r\n  \"roomList\": [ 63, 1364, 1389, 1390, 15730, 15731 ],\r\n  \"boardList\": [ 1, 37 ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyB2bApi/Api/Contract/CheckStopSaleState",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyB2bApi",
+						"Api",
+						"Contract",
+						"CheckStopSaleState"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateStopSale",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"RecId\": 0, // Yeni kayıt olduğunu belirtmek için 0 gönderiyoruz.\r\n    \"HotelId\": 18,\r\n    \"BeginDate\": \"2026-01-25T00:00:00\",\r\n    \"EndDate\": \"2026-01-25T00:00:00\",\r\n    \"DeclareDate\": \"2025-12-29T00:00:00\",\r\n    \"Active\": 0,\r\n    \"RecordUser\": \"Sedna\",\r\n    \"RecordSource\": 0,\r\n    \"StopType\": 0,\r\n    \"Authority\": 207,\r\n    \"RoomRemark\": \"STDSV,STDLV\",\r\n    \"OperatorRemark\": \"7STAR,\", // DİKKAT: Arayüzün görmesi için sonuna virgül ekledik.\r\n    \"BoardRemark\": \"UAI\",\r\n    \"State\": 1,\r\n    // --- KRİTİK DEĞİŞİKLİK ---\r\n    // Tüm alt dizileri boş gönderiyoruz ki referans hatası almayalım.\r\n    \"StopSaleRooms\": [],\r\n    \"StopSaleOperators\": [],\r\n    \"StopSaleBoards\": [],\r\n    \"StopSaleMarkets\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyB2bApi/Api/Contract/UpdateStopSale",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyB2bApi",
+						"Api",
+						"Contract",
+						"UpdateStopSale"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateStopSale2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"RecId\": 823259, // <-- 1. ADIMDAN ALDIĞIMIZ ID\r\n    \"HotelId\": 18,\r\n    \"BeginDate\": \"2026-01-25T00:00:00\",\r\n    \"EndDate\": \"2026-01-25T00:00:00\",\r\n    \"DeclareDate\": \"2025-12-29T00:00:00\",\r\n    \"Active\": 0,\r\n    \"RecordUser\": \"Sedna\",\r\n    \"RecordSource\": 0,\r\n    \"StopType\": 0,\r\n    \"Authority\": 207,\r\n    \"RoomRemark\": \"STDSV,STDLV\",\r\n    \"OperatorRemark\": \"7STAR,\",\r\n    \"BoardRemark\": \"UAI\",\r\n    \"State\": 1,\r\n    \"StopSaleRooms\": [\r\n        {\r\n            \"RoomTypeId\": 63,\r\n            \"State\": 1,\r\n            \"StopSaleId\": 823259 // <-- Ana kaydın ID'si ile ilişki kuruyoruz\r\n        }\r\n    ],\r\n    \"StopSaleOperators\": [\r\n        {\r\n            \"OperatorId\": 571,\r\n            \"State\": 1,\r\n            \"StopSaleId\": 823259 // <-- EN KRİTİK NOKTA: Ana kaydın ID'si ile ilişki kuruyoruz\r\n        }\r\n    ],\r\n    \"StopSaleBoards\": [\r\n        {\r\n            \"BoardId\": 1,\r\n            \"State\": 1,\r\n            \"StopSaleId\": 823259 // <-- Ana kaydın ID'si ile ilişki kuruyoruz\r\n        }\r\n    ],\r\n    \"StopSaleMarkets\": [\r\n        {\r\n            \"MarketId\": 10,\r\n            \"State\": 1,\r\n            \"StopSaleId\": 823259 // <-- Ana kaydın ID'si ile ilişki kuruyoruz\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://test.kodsedna.com/SednaAgencyB2bApi/Api/Contract/UpdateStopSale",
+					"protocol": "http",
+					"host": [
+						"test",
+						"kodsedna",
+						"com"
+					],
+					"path": [
+						"SednaAgencyB2bApi",
+						"Api",
+						"Contract",
+						"UpdateStopSale"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

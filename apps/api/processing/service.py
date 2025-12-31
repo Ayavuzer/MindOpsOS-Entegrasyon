@@ -147,7 +147,8 @@ class ProcessingService:
                     result.booking_emails_fetched, result.stopsale_emails_fetched,
                     result.reservations_parsed, result.stop_sales_parsed,
                     result.reservations_synced, result.stop_sales_synced,
-                    result.success, result.message, result.errors,
+                    result.success, result.message, 
+                    ",".join(result.errors) if result.errors else "",  # Convert list to string
                 )
         except Exception as e:
             # Log error but don't fail the pipeline

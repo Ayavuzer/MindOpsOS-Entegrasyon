@@ -8,6 +8,8 @@ from .models import (
     EmailConfig,
     SednaConfig,
     ProcessingConfig,
+    MicrosoftOAuthConfig,
+    GoogleOAuthConfig,
     TenantSettingsResponse,
     TenantSettingsUpdate,
     ConnectionTestResult,
@@ -56,15 +58,26 @@ class TenantSettingsService:
                     api_url=row["sedna_api_url"],
                     username=row["sedna_username"],
                     operator_id=row["sedna_operator_id"],
+                    operator_code=row.get("sedna_operator_code"),
+                    authority_id=row.get("sedna_authority_id") or 207,
                 ),
                 processing=ProcessingConfig(
                     email_check_interval_seconds=row["email_check_interval_seconds"] or 60,
                     auto_process_enabled=row["auto_process_enabled"] if row["auto_process_enabled"] is not None else True,
                     delete_after_fetch=row["delete_after_fetch"] if row["delete_after_fetch"] is not None else False,
                 ),
+                microsoft_oauth=MicrosoftOAuthConfig(
+                    client_id=row.get("microsoft_client_id"),
+                    tenant_id=row.get("microsoft_tenant_id") or "common",
+                ) if row.get("microsoft_client_id") else None,
+                google_oauth=GoogleOAuthConfig(
+                    client_id=row.get("google_client_id"),
+                ) if row.get("google_client_id") else None,
                 has_booking_password=row["booking_email_password_encrypted"] is not None,
                 has_stopsale_password=row["stopsale_email_password_encrypted"] is not None,
                 has_sedna_password=row["sedna_password_encrypted"] is not None,
+                has_microsoft_oauth=row.get("microsoft_client_id") is not None and row.get("microsoft_client_secret_encrypted") is not None,
+                has_google_oauth=row.get("google_client_id") is not None and row.get("google_client_secret_encrypted") is not None,
             )
     
     async def update_settings(
@@ -157,6 +170,18 @@ class TenantSettingsService:
                     updates.append(f"sedna_password_encrypted = ${param_idx}")
                     params.append(encrypt_value(data.sedna.password))
                     param_idx += 1
+                if data.sedna.operator_id is not None:
+                    updates.append(f"sedna_operator_id = ${param_idx}")
+                    params.append(data.sedna.operator_id)
+                    param_idx += 1
+                if data.sedna.operator_code is not None:
+                    updates.append(f"sedna_operator_code = ${param_idx}")
+                    params.append(data.sedna.operator_code)
+                    param_idx += 1
+                if data.sedna.authority_id is not None:
+                    updates.append(f"sedna_authority_id = ${param_idx}")
+                    params.append(data.sedna.authority_id)
+                    param_idx += 1
             
             if data.processing:
                 if data.processing.email_check_interval_seconds is not None:
@@ -170,6 +195,30 @@ class TenantSettingsService:
                 if data.processing.delete_after_fetch is not None:
                     updates.append(f"delete_after_fetch = ${param_idx}")
                     params.append(data.processing.delete_after_fetch)
+                    param_idx += 1
+            
+            if data.microsoft_oauth:
+                if data.microsoft_oauth.client_id is not None:
+                    updates.append(f"microsoft_client_id = ${param_idx}")
+                    params.append(data.microsoft_oauth.client_id)
+                    param_idx += 1
+                if data.microsoft_oauth.client_secret:
+                    updates.append(f"microsoft_client_secret_encrypted = ${param_idx}")
+                    params.append(encrypt_value(data.microsoft_oauth.client_secret))
+                    param_idx += 1
+                if data.microsoft_oauth.tenant_id is not None:
+                    updates.append(f"microsoft_tenant_id = ${param_idx}")
+                    params.append(data.microsoft_oauth.tenant_id)
+                    param_idx += 1
+            
+            if data.google_oauth:
+                if data.google_oauth.client_id is not None:
+                    updates.append(f"google_client_id = ${param_idx}")
+                    params.append(data.google_oauth.client_id)
+                    param_idx += 1
+                if data.google_oauth.client_secret:
+                    updates.append(f"google_client_secret_encrypted = ${param_idx}")
+                    params.append(encrypt_value(data.google_oauth.client_secret))
                     param_idx += 1
             
             if updates:
@@ -212,6 +261,8 @@ class TenantSettingsService:
                     "username": row["sedna_username"],
                     "password": decrypt_value(row["sedna_password_encrypted"]),
                     "operator_id": row["sedna_operator_id"],
+                    "operator_code": row.get("sedna_operator_code"),
+                    "authority_id": row.get("sedna_authority_id") or 207,
                 },
             }
     
@@ -322,7 +373,7 @@ class TenantSettingsService:
                         async with self.pool.acquire() as conn:
                             await conn.execute(
                                 "UPDATE tenant_settings SET sedna_operator_id = $1 WHERE tenant_id = $2",
-                                data["RecId"],
+                                str(data["RecId"]),  # Convert to string for VARCHAR column
                                 tenant_id,
                             )
                         

@@ -1,0 +1,194 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: entegrasyon-secrets
+  namespace: entegrasyon
+type: Opaque
+stringData:
+  DATABASE_URL: "postgresql://aria:aria_secure_2024@aria-postgres.default.svc.cluster.local:5432/mindops_entegrasyon"
+  JWT_SECRET: "entegrasyon-secret-key-change-in-production-2024"
+  ENCRYPTION_KEY: "entegrasyon-fernet-key-32-bytes="
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: entegrasyon-api
+  namespace: entegrasyon
+  labels:
+    app: entegrasyon-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: entegrasyon-api
+  template:
+    metadata:
+      labels:
+        app: entegrasyon-api
+    spec:
+      containers:
+      - name: api
+        image: ghcr.io/ayavuzer/entegrasyon-api:v1.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: entegrasyon-secrets
+              key: DATABASE_URL
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: entegrasyon-secrets
+              key: JWT_SECRET
+        - name: ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: entegrasyon-secrets
+              key: ENCRYPTION_KEY
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      imagePullSecrets:
+      - name: ghcr-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: entegrasyon-api
+  namespace: entegrasyon
+spec:
+  selector:
+    app: entegrasyon-api
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: entegrasyon-web
+  namespace: entegrasyon
+  labels:
+    app: entegrasyon-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: entegrasyon-web
+  template:
+    metadata:
+      labels:
+        app: entegrasyon-web
+    spec:
+      containers:
+      - name: web
+        image: ghcr.io/ayavuzer/entegrasyon-web:v1.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NEXT_PUBLIC_API_URL
+          value: "https://entegrasyon.mindops.net"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      imagePullSecrets:
+      - name: ghcr-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: entegrasyon-web
+  namespace: entegrasyon
+spec:
+  selector:
+    app: entegrasyon-web
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: entegrasyon-ingress
+  namespace: entegrasyon
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+spec:
+  tls:
+  - hosts:
+    - entegrasyon.mindops.net
+    secretName: entegrasyon-tls
+  rules:
+  - host: entegrasyon.mindops.net
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: entegrasyon-api
+            port:
+              number: 80
+      - path: /health
+        pathType: Exact
+        backend:
+          service:
+            name: entegrasyon-api
+            port:
+              number: 80
+      - path: /docs
+        pathType: Prefix
+        backend:
+          service:
+            name: entegrasyon-api
+            port:
+              number: 80
+      - path: /redoc
+        pathType: Prefix
+        backend:
+          service:
+            name: entegrasyon-api
+            port:
+              number: 80
+      - path: /openapi.json
+        pathType: Exact
+        backend:
+          service:
+            name: entegrasyon-api
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: entegrasyon-web
+            port:
+              number: 80

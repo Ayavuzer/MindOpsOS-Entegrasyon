@@ -1,5 +1,6 @@
 """FastAPI backend for MindOpsOS Entegrasyon Admin Panel."""
 
+import os
 from datetime import datetime
 from typing import Optional
 from contextlib import asynccontextmanager
@@ -25,11 +26,14 @@ from sedna import router as sedna_router, set_sedna_service, TenantSednaService
 # Processing module
 from processing import router as processing_router, set_processing_service, ProcessingService
 
+# OAuth module - lazy import to avoid circular dependency
+from oauth import get_oauth_router
+
 # =============================================================================
 # Configuration
 # =============================================================================
 
-DATABASE_URL = "postgresql://aria:aria_secure_2024@localhost:5432/mindops_entegrasyon"
+DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://aria:aria_secure_2024@localhost:5432/mindops_entegrasyon")
 
 pool: asyncpg.Pool | None = None
 
@@ -39,6 +43,7 @@ async def lifespan(app: FastAPI):
     """Manage application lifecycle."""
     global pool
     pool = await asyncpg.create_pool(DATABASE_URL, min_size=2, max_size=10)
+    app.state.pool = pool  # Store pool in app state for OAuth routes
     print("✅ Database connected")
     
     # Initialize auth service
@@ -56,8 +61,14 @@ async def lifespan(app: FastAPI):
     set_email_service(email_service)
     print("✅ Email service initialized")
     
-    # Initialize sedna service
-    sedna_service = TenantSednaService(pool, settings_service)
+    # Initialize sedna cache service (for Room/Board type lookups)
+    from sedna.cache_service import SednaCacheService, set_cache_service
+    cache_service = SednaCacheService(pool)
+    set_cache_service(cache_service)
+    print("✅ Sedna cache service initialized")
+    
+    # Initialize sedna service (with cache)
+    sedna_service = TenantSednaService(pool, settings_service, cache_service)
     set_sedna_service(sedna_service)
     print("✅ Sedna service initialized")
     
@@ -66,7 +77,65 @@ async def lifespan(app: FastAPI):
     set_processing_service(processing_service)
     print("✅ Processing service initialized")
     
+    # Initialize bulk sync service
+    from emailfetch.parser import EmailParserService
+    from sedna.bulk_sync_service import BulkSyncService, set_bulk_sync_service
+    parser_service = EmailParserService(pool)
+    bulk_sync_service = BulkSyncService(pool, sedna_service, parser_service)
+    set_bulk_sync_service(bulk_sync_service)
+    print("✅ Bulk sync service initialized")
+    
+    # Initialize sync report service
+    from sedna.report_service import SyncReportService, set_report_service
+    report_service = SyncReportService(pool)
+    set_report_service(report_service)
+    print("✅ Sync report service initialized")
+    
+    # Initialize hotel search and mapping services
+    from sedna.hotel_service import (
+        HotelSearchService, HotelMappingService,
+        set_hotel_search_service, set_hotel_mapping_service,
+    )
+    hotel_search_service = HotelSearchService(pool)
+    set_hotel_search_service(hotel_search_service)
+    hotel_mapping_service = HotelMappingService(pool)
+    set_hotel_mapping_service(hotel_mapping_service)
+    await hotel_mapping_service.ensure_table_exists()
+    print("✅ Hotel search and mapping services initialized")
+    
+    # Initialize and start token refresh job
+    from oauth.token_refresh_job import TokenRefreshJob, set_token_refresh_job
+    token_refresh_job = TokenRefreshJob(pool)
+    set_token_refresh_job(token_refresh_job)
+    await token_refresh_job.start()
+    print("✅ Token refresh job started")
+    
+    # Initialize IMAP IDLE service (optional - can be enabled per tenant)
+    from imap_idle.tenant_imap_service import TenantIMAPService, set_tenant_imap_service
+    
+    async def on_new_email_handler(tenant_id: int, email_type: str, notification):
+        """Handle new email notification from IMAP IDLE."""
+        print(f"📧 New email for tenant {tenant_id} ({email_type}): UID {notification.uid}")
+        # TODO: Trigger email processing pipeline
+    
+    imap_service = TenantIMAPService(pool, on_new_email=on_new_email_handler)
+    set_tenant_imap_service(imap_service)
+    print("✅ IMAP IDLE service initialized")
+    
+    # Initialize email health service
+    from imap_idle.health_service import EmailHealthService, set_email_health_service
+    health_service = EmailHealthService(pool)
+    set_email_health_service(health_service)
+    print("✅ Email health service initialized")
+    
     yield
+    
+    # Stop IMAP IDLE connections
+    await imap_service.stop_all()
+    print("👋 IMAP IDLE connections stopped")
+    
+    # Stop token refresh job
+    await token_refresh_job.stop()
     await pool.close()
     print("👋 Database disconnected")
 
@@ -166,6 +235,26 @@ app.include_router(sedna_router)
 
 # Include processing router
 app.include_router(processing_router)
+
+# Include OAuth router (lazy import to avoid circular dependency)
+app.include_router(get_oauth_router())
+
+# Include IMAP IDLE router
+from imap_idle.routes import router as imap_idle_router
+app.include_router(imap_idle_router)
+
+# Include Sync router
+from routers.sync import router as sync_router
+app.include_router(sync_router)
+
+# Include Sedna Routes router (hotel search, etc)
+from routers.sedna import router as sedna_routes_router
+app.include_router(sedna_routes_router)
+
+# Include AI router (email classification)
+from routers.ai import router as ai_router
+app.include_router(ai_router)
+
 # =============================================================================
 # Models
 # =============================================================================

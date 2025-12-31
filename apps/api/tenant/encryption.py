@@ -26,18 +26,21 @@ def get_fernet() -> Fernet:
     return _fernet
 
 
-def encrypt_value(plain_text: str) -> bytes:
-    """Encrypt a string value."""
+def encrypt_value(plain_text: str) -> str:
+    """Encrypt a string value and return as string for database storage."""
     if not plain_text:
         return None
-    return get_fernet().encrypt(plain_text.encode())
+    return get_fernet().encrypt(plain_text.encode()).decode()
 
 
-def decrypt_value(encrypted: bytes) -> str:
-    """Decrypt an encrypted value."""
+def decrypt_value(encrypted: str) -> str:
+    """Decrypt an encrypted value stored as string."""
     if not encrypted:
         return None
     try:
+        # Handle both string and bytes input
+        if isinstance(encrypted, str):
+            encrypted = encrypted.encode()
         return get_fernet().decrypt(encrypted).decode()
     except Exception:
         return None
